@@ -5,7 +5,6 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
-  "dependencies": {
-    "react-native": "0.78.0"
-  }
+  "@react-native-community/cli": "latest"
+  
 }
