@@ -2,13 +2,20 @@
   "expo": {
     "name": "sms_email_call_spam_detection",
     "slug": "sms_email_call_spam_detection",
-    
-    "platforms": ["android","web"],
+    "platforms": [
+      "android",
+      "web"
+    ],
     "android": {
       "permissions": [
         "READ_SMS",
         "READ_CALL_LOG"
       ]
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cb93d9a1-a149-4ad7-bc05-f6c37bd3e5ae"
+      }
     }
   }
 }

@@ -12,6 +12,8 @@
   "dependencies": {
     "@expo/metro-runtime": "~4.0.1",
     "@huggingface/transformers": "^3.3.3",
+    "@react-native-community/google-signin": "^5.0.0",
+    "@react-native-google-signin/google-signin": "^13.2.0",
     "@react-navigation/bottom-tabs": "^7.2.1",
     "@react-navigation/native": "^7.0.15",
     "expo": "~52.0.37",
