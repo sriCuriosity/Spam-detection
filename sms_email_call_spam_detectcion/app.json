@@ -1,7 +1,14 @@
 {
   "expo": {
-    "name": "sms_email_call_spam_detectcion",
-    "slug": "sms_email_call_spam_detectcion",
-    "version": "1.0.0"
+    "name": "sms_email_call_spam_detection",
+    "slug": "sms_email_call_spam_detection",
+    
+    "platforms": ["android","web"],
+    "android": {
+      "permissions": [
+        "READ_SMS",
+        "READ_CALL_LOG"
+      ]
+    }
   }
 }

@@ -1,113 +1,121 @@
-import React, { useState } from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-
-// Sample data for demonstration purposes
-const sampleSMS = [
-  { id: '1', content: 'Congratulations! You have won a prize!', isSpam: true },
-  { id: '2', content: 'Your appointment is confirmed.', isSpam: false },
-];
-
-const sampleEmails = [
-  { id: '1', subject: 'Your invoice is ready', isSpam: false },
-  { id: '2', subject: 'Win a free iPhone!', isSpam: true },
-  
-];
-
-const sampleCalls = [
-  { id: '1', number: '+1234567890', isSpam: true },
-  { id: '2', number: '+0987654321', isSpam: false },
-  
-];
-
-// Component for displaying SMS
-const SMSScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Last 10 SMS</Text>
-      <FlatList
-        data={sampleSMS}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Text style={item.isSpam ? styles.spam : styles.normal}>
-            {item.content} - {item.isSpam ? 'Spam' : 'Normal'}
-          </Text>
-        )}
-      />
-    </View>
-  );
-};
-
-// Component for displaying Emails
-const EmailScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Last 10 Emails</Text>
-      <FlatList
-        data={sampleEmails}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Text style={item.isSpam ? styles.spam : styles.normal}>
-            {item.subject} - {item.isSpam ? 'Spam' : 'Normal'}
-          </Text>
-        )}
-      />
-    </View>
-  );
-};
-
-// Component for displaying Call Data
-const CallScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Last 10 Calls</Text>
-      <FlatList
-        data={sampleCalls}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Text style={item.isSpam ? styles.spam : styles.normal}>
-            {item.number} - {item.isSpam ? 'Spam' : 'Normal'}
-          </Text>
-        )}
-      />
-    </View>
-  );
-};
+import { checkSpamSMS, checkSpamEmail, checkSpamCaller } from './SpamDetectionApp';
 
 const Tab = createBottomTabNavigator();
 
-const App = () => {
+// SMS Component
+const SMS = () => {
+  const [smsList, setSMSList] = useState([
+    { id: '1', text: 'Congratulations, you have won a free gift!' },
+    { id: '2', text: 'Reminder: Your appointment is scheduled for tomorrow.' },
+  ]);
+
+  useEffect(() => {
+    const checkSMS = async () => {
+      const updatedSMS = await Promise.all(
+        smsList.map(async (sms) => ({
+          ...sms,
+          spam: await checkSpamSMS(sms.text),
+        }))
+      );
+      setSMSList(updatedSMS);
+    };
+
+    checkSMS();
+  }, []);
+
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="SMS" component={SMSScreen} />
-        <Tab.Screen name="Email" component={EmailScreen} />
-        <Tab.Screen name="Calls" component={CallScreen} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <View>
+      <FlatList
+        data={smsList}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Text>{item.text} - {item.spam ? 'Spam' : 'Normal'}</Text>
+        )}
+      />
+    </View>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  spam: {
-    color: 'red',
-    marginVertical: 5,
-  },
-  normal: {
-    color: 'green',
-    marginVertical: 5,
-  },
-});
+// Email Component
+const Emails = () => {
+  const [emailList, setEmailList] = useState([
+    { id: '1', subject: 'Free money for you!' },
+    { id: '2', subject: 'Your recent order is confirmed.' },
+  ]);
 
-export default App;
+  useEffect(() => {
+    const checkEmails = async () => {
+      const updatedEmails = await Promise.all(
+        emailList.map(async (email) => ({
+          ...email,
+          spam: await checkSpamEmail(email.subject),
+        }))
+      );
+      setEmailList(updatedEmails);
+    };
+
+    checkEmails();
+  }, []);
+
+  return (
+    <View>
+      <FlatList
+        data={emailList}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Text>{item.subject} - {item.spam ? 'Spam' : 'Normal'}</Text>
+        )}
+      />
+    </View>
+  );
+};
+
+// Calls Component
+const Calls = () => {
+  const [callList, setCallList] = useState([
+    { id: '1', number: '+919443678098' },
+    { id: '2', number: '+917600000000' },
+  ]);
+
+  useEffect(() => {
+    const checkCalls = async () => {
+      const updatedCalls = await Promise.all(
+        callList.map(async (call) => ({
+          ...call,
+          spam: await checkSpamCaller(call.number),
+        }))
+      );
+      setCallList(updatedCalls);
+    };
+
+    checkCalls();
+  }, []);
+
+  return (
+    <View>
+      <FlatList
+        data={callList}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Text>{item.number} - {item.spam ? 'Spam' : 'Normal'}</Text>
+        )}
+      />
+    </View>
+  );
+};
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Tab.Navigator>
+        <Tab.Screen name="SMS" component={SMS} />
+        <Tab.Screen name="Emails" component={Emails} />
+        <Tab.Screen name="Calls" component={Calls} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+}
