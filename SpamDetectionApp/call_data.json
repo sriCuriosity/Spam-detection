@@ -1,0 +1,7 @@
+[
+  {"caller": "+1555666777", "isSpam": true},
+  {"caller": "+1999888777", "isSpam": false},
+  {"caller": "+1222444555", "isSpam": true},
+  {"caller": "+1333444555", "isSpam": false},
+  {"caller": "+1888999777", "isSpam": true}
+]

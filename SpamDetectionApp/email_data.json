@@ -1,0 +1,7 @@
+[
+  {"from": "spam@scam.com", "subject": "You won $1,000,000!", "isSpam": true},
+  {"from": "friend@example.com", "subject": "Weekend plans?", "isSpam": false},
+  {"from": "bank@secure.com", "subject": "Confirm your login details.", "isSpam": true},
+  {"from": "newsletter@company.com", "subject": "Latest offers just for you!", "isSpam": false},
+  {"from": "unknown@random.net", "subject": "Hurry! Limited time offer.", "isSpam": true}
+]

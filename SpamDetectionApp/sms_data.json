@@ -1,0 +1,7 @@
+[
+  {"sender": "+1234567890", "message": "Congratulations! You won a prize.", "isSpam": true},
+  {"sender": "+1987654321", "message": "Hey, let's meet for coffee.", "isSpam": false},
+  {"sender": "+1122334455", "message": "Urgent: Your account needs verification!", "isSpam": true},
+  {"sender": "+1444555666", "message": "Reminder: Your doctor's appointment is tomorrow.", "isSpam": false},
+  {"sender": "+1777888999", "message": "You've received a refund. Click the link!", "isSpam": true}
+]

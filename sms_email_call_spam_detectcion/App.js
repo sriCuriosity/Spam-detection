@@ -32,20 +32,6 @@ const styles = StyleSheet.create({
   },
 });
 
-
-const Header = () => {
-  return (
-    <View style={styles.header}>
-      <Image
-        source={require('/workspaces/Spam-detection/sms_email_call_spam_detectcion/WhatsApp Image 2025-03-04 at 21.39.24_d78cb936.jpg')} // Update this with the actual path to your logo image
-        style={styles.logo}
-      />
-      <Text style={styles.headerText}>Your App Name</Text>
-    </View>
-  );
-};
-
-
 // Request permission for SMS access
 async function requestSmsPermission() {
   if (Platform.OS === 'android') {
@@ -255,7 +241,7 @@ const Calls = () => {
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+
       <NavigationContainer>
         <Tab.Navigator>
           <Tab.Screen name="SMS" component={SMS} />
