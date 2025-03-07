@@ -7,6 +7,7 @@ import { GoogleSignin } from '@react-native-community/google-signin';
 import { google } from 'googleapis';
 import CallLogs from 'react-native-call-log';
 import { checkSpamSMS, checkSpamEmail, checkSpamCaller } from './SpamDetectionApp';
+import TcpSocket from "react-native-tcp-socket";
 
 const Tab = createBottomTabNavigator();
 
@@ -65,7 +66,7 @@ async function fetchSms(setSMSList) {
 // Configure Google Sign-In
 GoogleSignin.configure({
   scopes: ['https://www.googleapis.com/auth/gmail.readonly'],
-  webClientId: '<YOUR_CLIENT_ID>', // Add your Web Client ID here
+  webClientId: '456281401658-ao2h92lr4ah0aju8c7s6dun639rpsuho.apps.googleusercontent.com', // Add your Web Client ID here
   offlineAccess: true,
 });
 
@@ -114,7 +115,6 @@ async function requestCallLogPermission() {
   return true;  // No permission needed for iOS
 }
 
-// Fetch Call Log
 async function fetchCalls(setCallList) {
   try {
     const hasPermission = await requestCallLogPermission();
